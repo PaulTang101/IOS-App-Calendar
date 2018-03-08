@@ -15,7 +15,7 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
         super.viewDidLoad()
         calendarView.delegate  = self
         calendarView.dataSource = self
-        let itemSize = UIScreen.main.bounds.width/7 - 5
+        let itemSize = UIScreen.main.bounds.width/7 - 7
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsetsMake(2, 3, 1, 2)
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
@@ -32,15 +32,15 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
         // Dispose of any resources that can be recreated.
     }
     
-    /*
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //let club = Club.clubs[indexPath.row]
         //selectedClub = club
     }
-     */
+ 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10 //return the # of dates in the month
+        return 42 //return the # of dates in the month
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

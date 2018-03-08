@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F2222682051E0BB0011DA71 /* Months.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2222672051E0BB0011DA71 /* Months.swift */; };
 		ACDC48A42050B1CC000B1AAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC48A32050B1CC000B1AAD /* AppDelegate.swift */; };
 		ACDC48A92050B1CC000B1AAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACDC48A72050B1CC000B1AAD /* Main.storyboard */; };
 		ACDC48AB2050B1CC000B1AAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACDC48AA2050B1CC000B1AAD /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F2222672051E0BB0011DA71 /* Months.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Months.swift; path = ../Months.swift; sourceTree = "<group>"; };
 		ACDC48A02050B1CC000B1AAD /* calendarTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calendarTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDC48A32050B1CC000B1AAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACDC48A82050B1CC000B1AAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				ACDC48D32050B413000B1AAD /* CalendarCollectionViewCell.swift */,
 				ACDC48A32050B1CC000B1AAD /* AppDelegate.swift */,
+				3F2222672051E0BB0011DA71 /* Months.swift */,
 				ACDC48D12050B34D000B1AAD /* CalendarViewController.swift */,
 				ACDC48A72050B1CC000B1AAD /* Main.storyboard */,
 				ACDC48AA2050B1CC000B1AAD /* Assets.xcassets */,
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F2222682051E0BB0011DA71 /* Months.swift in Sources */,
 				ACDC48D42050B413000B1AAD /* CalendarCollectionViewCell.swift in Sources */,
 				ACDC48D22050B34D000B1AAD /* CalendarViewController.swift in Sources */,
 				ACDC48A42050B1CC000B1AAD /* AppDelegate.swift in Sources */,
@@ -511,6 +515,7 @@
 				ACDC48CA2050B1CC000B1AAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ACDC48CB2050B1CC000B1AAD /* Build configuration list for PBXNativeTarget "calendarTestTests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +524,7 @@
 				ACDC48CD2050B1CC000B1AAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ACDC48CE2050B1CC000B1AAD /* Build configuration list for PBXNativeTarget "calendarTestUITests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +533,7 @@
 				ACDC48D02050B1CC000B1AAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
