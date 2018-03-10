@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3F2222682051E0BB0011DA71 /* Months.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2222672051E0BB0011DA71 /* Months.swift */; };
-		3F8C71B920535F29002FD806 /* CalendarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8C71B820535F29002FD806 /* CalendarTableViewController.swift */; };
 		3F8C71BB20535F47002FD806 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8C71BA20535F47002FD806 /* CalendarTableViewCell.swift */; };
 		ACDC48A42050B1CC000B1AAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC48A32050B1CC000B1AAD /* AppDelegate.swift */; };
 		ACDC48A92050B1CC000B1AAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACDC48A72050B1CC000B1AAD /* Main.storyboard */; };
@@ -39,7 +38,6 @@
 
 /* Begin PBXFileReference section */
 		3F2222672051E0BB0011DA71 /* Months.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Months.swift; path = ../Months.swift; sourceTree = "<group>"; };
-		3F8C71B820535F29002FD806 /* CalendarTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalendarTableViewController.swift; path = ../CalendarTableViewController.swift; sourceTree = "<group>"; };
 		3F8C71BA20535F47002FD806 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalendarTableViewCell.swift; path = ../CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		ACDC48A02050B1CC000B1AAD /* calendarTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calendarTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDC48A32050B1CC000B1AAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 		ACDC48A22050B1CC000B1AAD /* calendarTest */ = {
 			isa = PBXGroup;
 			children = (
-				3F8C71B820535F29002FD806 /* CalendarTableViewController.swift */,
 				3F8C71BA20535F47002FD806 /* CalendarTableViewCell.swift */,
 				ACDC48D32050B413000B1AAD /* CalendarCollectionViewCell.swift */,
 				ACDC48A32050B1CC000B1AAD /* AppDelegate.swift */,
@@ -272,7 +269,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2222682051E0BB0011DA71 /* Months.swift in Sources */,
-				3F8C71B920535F29002FD806 /* CalendarTableViewController.swift in Sources */,
 				ACDC48D42050B413000B1AAD /* CalendarCollectionViewCell.swift in Sources */,
 				ACDC48D22050B34D000B1AAD /* CalendarViewController.swift in Sources */,
 				ACDC48A42050B1CC000B1AAD /* AppDelegate.swift in Sources */,

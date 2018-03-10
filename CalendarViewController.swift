@@ -8,9 +8,11 @@
 
 import UIKit
 
-class CalendarViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class CalendarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    //, UITableViewDataSource, UITableViewDelegate
     
+    @IBOutlet weak var calendarTable: UITableView!
     
     @IBOutlet weak var calendarView: UICollectionView!
     
@@ -18,6 +20,9 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        calendarTable.delegate = self
+        calendarTable.dataSource = self
+        
         calendarView.delegate  = self
         calendarView.dataSource = self
         let itemSize = UIScreen.main.bounds.width/7 - 7
@@ -124,6 +129,38 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
         //cell.clubImage.image = club.ClubCellImageName
         
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 1//subscribedClubs.count
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //let club = subscribedClubs[indexPath.row]
+        //selectedClub = club
+        //performSegue(withIdentifier: "showclubinformationthroughuser", sender: self)
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: CalendarTableViewCell = tableView.dequeueReusableCell(withIdentifier: "tableReuseIdentifier", for: indexPath) as! CalendarTableViewCell
+        
+        //let subscribedClub = subscribedClubs[indexPath.row]
+        
+        // Configure the cell...
+        //cell.clubImage.image = subscribedClub.ClubCellImageName
+        //cell.clubName?.text = subscribedClub.ClubNa
+        cell.tableLabel?.text = "todo: 111"
+        
+        return cell
+    }
+
     
 
     /*
