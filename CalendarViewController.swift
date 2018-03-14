@@ -35,6 +35,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         calendarView.collectionViewLayout = layout
 
         // Do any additional setup after loading the view.
+        
 
     }
 
@@ -55,45 +56,42 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         calendarView.reloadData()
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //let club = Club.clubs[indexPath.row]
-        //selectedClub = club
-        /*
-        switch monthIndex {
-        case 1:
-            let date = collectionView.cellForItem(at: indexPath)
-            date?.backgroundColor = UIColor.red
-            
-        case 1:
-            let date = collectionView.cellForItem(at: indexPath)
-            date?.backgroundColor = UIColor.red
-            
-        default:
-            let date = collectionView.cellForItem(at: indexPath)
-            date?.backgroundColor = UIColor.clear
+    func getDayOfWeekFunc(today:String)->Int? {
+        
+        let formatter  = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        if let todayDate = formatter.date(from: today) {
+            let myCalendar = Calendar(identifier: .gregorian)
+            let myComponents = myCalendar.component(.weekday, from: todayDate)
+            let weekDay = myComponents
+            return weekDay
         }
-         */
+        return nil
+    }
+
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = collectionView.cellForItem(at: indexPath)
         date?.backgroundColor = UIColor.red
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        /*
-        switch monthIndex {
-        case 1:
-            let date = collectionView.cellForItem(at: indexPath)
-            date?.backgroundColor = UIColor.clear
-            
-        default:
-            let date = collectionView.cellForItem(at: indexPath)
-            date?.backgroundColor = UIColor.clear
-        }
-         */
         let date = collectionView.cellForItem(at: indexPath)
         date?.backgroundColor = UIColor.clear
+        
+        /*
+         GET TODAY'S DATE
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        let result = formatter.string(from: today)
+        label.text = result
+         */
+
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        /*
         switch monthIndex {
         case 1:
             return janDates.count
@@ -102,14 +100,17 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         default:
             return 0
         }
+         */
         // the switch statement can just return 35 if all months have 35 items
+        return selectedMonth.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "discovercells", for: indexPath) as! CalendarCollectionViewCell
     
         cell.backgroundColor = UIColor.clear
-        
+        /*
         switch monthIndex {
         case 1:
             let dates = janDates[indexPath.row]
@@ -120,10 +121,38 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.number?.text = dates
             return cell
         default:
-            let dates = noDates[indexPath.row]
+            let dates = selectedMonth[indexPath.row]
             cell.number?.text = dates
             return cell
         }
+         */
+        // get the current date
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        let result = formatter.string(from: today)
+        
+        // get the day in a week
+        var weekday = getDayOfWeekFunc(today: result)
+        
+        // get the # of days in a given month & year
+        let dateComponents = DateComponents(year: 2005, month: 2)
+        let calendar = Calendar.current
+        let date = calendar.date(from: dateComponents)!
+        let range = calendar.range(of: .day, in: .month, for: date)!
+        let numDays: Int = range.count
+        
+        //add dates to selectedMonth array
+        var day: Int = 1
+            while day <= numDays {
+                selectedMonth[weekday!] = String(day)
+                weekday! += 1
+                day += 1
+            }
+        
+        let dates = selectedMonth[indexPath.row]
+        cell.number?.text = dates
+        return cell
         //let dates = janDates[indexPath.row]
         //cell.clubName?.text = club.ClubNa
         //cell.clubImage.image = club.ClubCellImageName
