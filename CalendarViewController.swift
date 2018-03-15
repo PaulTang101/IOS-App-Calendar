@@ -16,7 +16,10 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet weak var calendarView: UICollectionView!
     
-    var monthIndex: Int = 1 // access Date() to confirm actual month
+    var monthIndex: Int = 1
+    var yearIndex: Int = 1
+    var dayIndex: Int = 1
+    var result: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,11 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         calendarView.collectionViewLayout = layout
 
         // Do any additional setup after loading the view.
+        // get the current date
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        result = formatter.string(from: today)
         
 
     }
@@ -59,7 +67,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     func getDayOfWeekFunc(today:String)->Int? {
         
         let formatter  = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd"
+        formatter.dateFormat = "yyyy-MM-dd"
         if let todayDate = formatter.date(from: today) {
             let myCalendar = Calendar(identifier: .gregorian)
             let myComponents = myCalendar.component(.weekday, from: todayDate)
@@ -110,33 +118,30 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "discovercells", for: indexPath) as! CalendarCollectionViewCell
     
         cell.backgroundColor = UIColor.clear
-        /*
-        switch monthIndex {
-        case 1:
-            let dates = janDates[indexPath.row]
-            cell.number?.text = dates
-            return cell
-        case 2:
-            let dates = febDates[indexPath.row]
-            cell.number?.text = dates
-            return cell
-        default:
-            let dates = selectedMonth[indexPath.row]
-            cell.number?.text = dates
-            return cell
-        }
-         */
-        // get the current date
-        let today = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd"
-        let result = formatter.string(from: today)
+
+        // year value to int
+        let indexOfYear = result.index(result.startIndex, offsetBy: 4)
+        yearIndex = Int(result.substring(to: indexOfYear))!  // yyyy
+        
+        // month value to int
+        let startOfMonth = result.index(result.startIndex, offsetBy: 5)
+        let endOfMonth = result.index(result.endIndex, offsetBy: -2)
+        let rangeOfMonth = startOfMonth..<endOfMonth
+        monthIndex = Int(result.substring(with: rangeOfMonth))!  // MM
+        
+        //day value to int
+        let indexofDay = result.index(result.startIndex, offsetBy: 8)
+        dayIndex = Int(result.substring(from: indexofDay))!  // dd
+        
+        // update result
+        result = String(yearIndex) + "-" + String(monthIndex) + "-" + String(dayIndex)
         
         // get the day in a week
         var weekday = getDayOfWeekFunc(today: result)
         
         // get the # of days in a given month & year
-        let dateComponents = DateComponents(year: 2005, month: 2)
+        let dateComponents = DateComponents(year: yearIndex
+            , month: monthIndex)
         let calendar = Calendar.current
         let date = calendar.date(from: dateComponents)!
         let range = calendar.range(of: .day, in: .month, for: date)!
