@@ -19,6 +19,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     var monthIndex: Int = 1
     var yearIndex: Int = 1
     var dayIndex: Int = 1
+    var finalDayIndex: String = ""
+    var finalMonthIndex: String = ""
+    
     var result: String = ""
     
     override func viewDidLoad() {
@@ -44,6 +47,21 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         formatter.dateFormat = "yyyy-MM-dd"
         result = formatter.string(from: today)
         
+        // year value to int
+        let indexOfYear = result.index(result.endIndex, offsetBy: -6)
+        yearIndex = Int(result.substring(to: indexOfYear))!   //yyyy
+        
+        //day value to int
+        let indexofDay = result.index(result.startIndex, offsetBy: 8)
+        dayIndex = Int(result.substring(from: indexofDay))!
+        finalDayIndex = String(format: "%02d", dayIndex)
+        
+        // month value to int
+        let indexofMonth1 = result.index(result.startIndex, offsetBy: 5)
+        let indexofMonth2 = result.index(result.endIndex, offsetBy: -3)
+        monthIndex = Int(result.substring(with: indexofMonth1..<indexofMonth2))!
+        finalMonthIndex = String(format: "%02d", monthIndex)
+        
 
     }
 
@@ -55,13 +73,22 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func nextMonth(_ sender: Any) {
         monthIndex += 1
+        finalMonthIndex = String(format: "%02d", monthIndex)
+        for i in selectedMonth.indices {
+            selectedMonth[i] = ""
+        }
         calendarView.reloadData()
         
     }
     
     @IBAction func lastMonth(_ sender: Any) {
         monthIndex -= 1
+        finalMonthIndex = String(format: "%02d", monthIndex)
+        for i in selectedMonth.indices {
+            selectedMonth[i] = ""
+        }
         calendarView.reloadData()
+        
     }
     
     func getDayOfWeekFunc(today:String)->Int? {
@@ -99,17 +126,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        /*
-        switch monthIndex {
-        case 1:
-            return janDates.count
-        case 2:
-            return febDates.count
-        default:
-            return 0
-        }
-         */
-        // the switch statement can just return 35 if all months have 35 items
         return selectedMonth.count
         
     }
@@ -119,25 +135,15 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
         cell.backgroundColor = UIColor.clear
 
-        // year value to int
-        let indexOfYear = result.index(result.startIndex, offsetBy: 4)
-        yearIndex = Int(result.substring(to: indexOfYear))!  // yyyy
-        
-        // month value to int
-        let startOfMonth = result.index(result.startIndex, offsetBy: 5)
-        let endOfMonth = result.index(result.endIndex, offsetBy: -2)
-        let rangeOfMonth = startOfMonth..<endOfMonth
-        monthIndex = Int(result.substring(with: rangeOfMonth))!  // MM
-        
-        //day value to int
-        let indexofDay = result.index(result.startIndex, offsetBy: 8)
-        dayIndex = Int(result.substring(from: indexofDay))!  // dd
-        
+       
         // update result
-        result = String(yearIndex) + "-" + String(monthIndex) + "-" + String(dayIndex)
+        result = String(yearIndex) + "-" + finalMonthIndex + "-" + finalDayIndex
         
         // get the day in a week
         var weekday = getDayOfWeekFunc(today: result)
+        if weekday! == 7 {
+            weekday! = 0
+        }
         
         // get the # of days in a given month & year
         let dateComponents = DateComponents(year: yearIndex
@@ -146,6 +152,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let date = calendar.date(from: dateComponents)!
         let range = calendar.range(of: .day, in: .month, for: date)!
         let numDays: Int = range.count
+        
+        
         
         //add dates to selectedMonth array
         var day: Int = 1
@@ -174,12 +182,13 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         return 1//subscribedClubs.count
         
     }
-    
+    /*
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //let club = subscribedClubs[indexPath.row]
         //selectedClub = club
         //performSegue(withIdentifier: "showclubinformationthroughuser", sender: self)
     }
+     */
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
