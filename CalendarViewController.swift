@@ -12,6 +12,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
 
     //, UITableViewDataSource, UITableViewDelegate
     
+    @IBOutlet weak var displayText: UILabel!
+    
     @IBOutlet weak var calendarTable: UITableView!
     
     @IBOutlet weak var calendarView: UICollectionView!
@@ -119,7 +121,12 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = collectionView.cellForItem(at: indexPath)
-        date?.backgroundColor = UIColor.red
+        
+        let checkDate = selectedMonth[indexPath.row]
+        
+        if checkDate != "" {
+            date?.backgroundColor = UIColor.red
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -150,6 +157,11 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
        
         // update result
         result = String(yearIndex) + "-" + finalMonthIndex + "-" + finalDayIndex
+        
+        // displaying year & month
+        displayText.text = result
+        let displayTextIndex = result.index(result.endIndex, offsetBy: -3)
+        displayText.text = result.substring(to: displayTextIndex)
         
         // get the day in a week
         var weekday = getDayOfWeekFunc(today: result)
