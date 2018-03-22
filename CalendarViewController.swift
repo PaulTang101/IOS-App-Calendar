@@ -166,7 +166,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         // get the day in a week
         var weekday = getDayOfWeekFunc(today: result)
         if weekday! == 7 {
-            weekday! = 0
+            weekday! = 1
         }
         
         // get the # of days in a given month & year
@@ -182,7 +182,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         //add dates to selectedMonth array
         var day: Int = 1
             while day <= numDays {
-                selectedMonth[weekday!] = String(day)
+                selectedMonth[weekday! - 1] = String(day)
                 weekday! += 1
                 day += 1
             }
