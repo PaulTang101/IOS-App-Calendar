@@ -72,8 +72,14 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     
     @IBAction func nextMonth(_ sender: Any) {
-        monthIndex += 1
+        if monthIndex < 12 {
+            monthIndex += 1
+        } else {
+            yearIndex += 1
+            monthIndex = 1
+        }
         finalMonthIndex = String(format: "%02d", monthIndex)
+        
         for i in selectedMonth.indices {
             selectedMonth[i] = ""
         }
@@ -82,8 +88,14 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func lastMonth(_ sender: Any) {
-        monthIndex -= 1
+        if monthIndex > 1 {
+            monthIndex -= 1
+        } else {
+            yearIndex -= 1
+            monthIndex = 12
+        }
         finalMonthIndex = String(format: "%02d", monthIndex)
+        
         for i in selectedMonth.indices {
             selectedMonth[i] = ""
         }
