@@ -10,7 +10,9 @@ import UIKit
 
 class CalendarTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var tableLabel: UILabel!
+    @IBOutlet weak var postDescription: UILabel!
+    
+    @IBOutlet weak var clubName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

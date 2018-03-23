@@ -16,6 +16,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let samplePost1 = Post(postTitle: "math club meeting", clubName: "Math Club", postDate: "2018-04-21")
+        
+        let samplePost2 = Post(postTitle: "art club meeting cancelled", clubName: "Art Club", postDate: "2018-03-27")
+        
+        let samplePost3 = Post(postTitle: "STEM club meeting tommorow", clubName: "STEM Club", postDate: "2018-03-27")
+        
+        let samplePost4 = Post(postTitle: "music performance", clubName: "Music Club", postDate: "2018-05-02")
+        
+        subscribedPosts += [samplePost1, samplePost2, samplePost3, samplePost4]
+        
+        /*
+        let fillerPost = Post(postTitle: "filler", clubName: "filler", postDate: "0000-00-00")
+        
+        displayedPosts += [fillerPost]
+         */
+        
         return true
     }
 

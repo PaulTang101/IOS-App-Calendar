@@ -23,8 +23,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     var dayIndex: Int = 1
     var finalDayIndex: String = ""
     var finalMonthIndex: String = ""
-    
     var result: String = ""
+    var datePicked: String = ""
+    var checkDisplayedPosts: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +65,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         monthIndex = Int(result.substring(with: indexofMonth1..<indexofMonth2))!
         finalMonthIndex = String(format: "%02d", monthIndex)
         
-
+        datePicked = result
     }
 
     override func didReceiveMemoryWarning() {
@@ -122,16 +123,32 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = collectionView.cellForItem(at: indexPath)
         
-        let checkDate = selectedMonth[indexPath.row]
+        //finalMonthIndex = String(format: "%02d", monthIndex)
+        
+        let checkDate =  String(format: "%02d", Int(selectedMonth[indexPath.row])!)
         
         if checkDate != "" {
             date?.backgroundColor = UIColor.red
         }
+        
+        // this is the actual date picked
+        let indexOfDatePicked = result.index(result.endIndex, offsetBy: -2)
+        datePicked = result.substring(to: indexOfDatePicked) + checkDate
+        
+        for post in subscribedPosts {
+            if datePicked == post.postDate {
+                    displayedPosts += [post]
+            }
+        }
+        calendarTable.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
         let date = collectionView.cellForItem(at: indexPath)
         date?.backgroundColor = UIColor.clear
+        
+        displayedPosts.removeAll()
         
         /*
          GET TODAY'S DATE
@@ -190,9 +207,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let dates = selectedMonth[indexPath.row]
         cell.number?.text = dates
         return cell
-        //let dates = janDates[indexPath.row]
-        //cell.clubName?.text = club.ClubNa
-        //cell.clubImage.image = club.ClubCellImageName
         
     }
     
@@ -202,10 +216,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1//subscribedClubs.count
-        
+        return displayedPosts.count
     }
+    
     /*
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //let club = subscribedClubs[indexPath.row]
@@ -217,13 +230,21 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CalendarTableViewCell = tableView.dequeueReusableCell(withIdentifier: "tableReuseIdentifier", for: indexPath) as! CalendarTableViewCell
+        /*
+        for post in subscribedPosts {
+            if datePicked == post.postDate {
+                displayedPosts += [post]
+            }
+        }
+        */
         
-        //let subscribedClub = subscribedClubs[indexPath.row]
+        let postsToDisplay = displayedPosts[indexPath.row]
         
         // Configure the cell...
         //cell.clubImage.image = subscribedClub.ClubCellImageName
         //cell.clubName?.text = subscribedClub.ClubNa
-        cell.tableLabel?.text = "todo: 111"
+        cell.clubName?.text = postsToDisplay.clubName
+        cell.postDescription?.text = postsToDisplay.postTitle
         
         return cell
     }
