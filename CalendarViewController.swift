@@ -20,8 +20,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var monthIndex: Int = 1
     var yearIndex: Int = 1
-    var dayIndex: Int = 1
-    var finalDayIndex: String = ""
     var finalMonthIndex: String = ""
     var result: String = ""
     var datePicked: String = ""
@@ -54,18 +52,11 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let indexOfYear = result.index(result.endIndex, offsetBy: -6)
         yearIndex = Int(result.substring(to: indexOfYear))!   //yyyy
         
-        //day value to int
-        let indexofDay = result.index(result.startIndex, offsetBy: 8)
-        dayIndex = Int(result.substring(from: indexofDay))!
-        finalDayIndex = String(format: "%02d", dayIndex)
-        
         // month value to int
         let indexofMonth1 = result.index(result.startIndex, offsetBy: 5)
         let indexofMonth2 = result.index(result.endIndex, offsetBy: -3)
         monthIndex = Int(result.substring(with: indexofMonth1..<indexofMonth2))!
         finalMonthIndex = String(format: "%02d", monthIndex)
-        
-        datePicked = result
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,7 +109,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         return nil
     }
-
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = collectionView.cellForItem(at: indexPath)
@@ -135,11 +125,24 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let indexOfDatePicked = result.index(result.endIndex, offsetBy: -2)
         datePicked = result.substring(to: indexOfDatePicked) + checkDate
         
-        for post in subscribedPosts {
-            if datePicked == post.postDate {
+        if displayedPosts.isEmpty {
+            for post in subscribedPosts {
+                if datePicked == post.postDate {
                     displayedPosts += [post]
+                }
+            }
+        } else {
+            for post in subscribedPosts {
+                for checkDuplicate in displayedPosts {
+                    if datePicked == post.postDate && datePicked != checkDuplicate.postDate {
+                         displayedPosts += [post]
+                    } else {
+                        displayedPosts.removeAll()
+                    }
+                }
             }
         }
+        
         calendarTable.reloadData()
     }
     
@@ -147,8 +150,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let date = collectionView.cellForItem(at: indexPath)
         date?.backgroundColor = UIColor.clear
-        
-        displayedPosts.removeAll()
         
         /*
          GET TODAY'S DATE
@@ -173,14 +174,14 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
 
        
         // update result
-        result = String(yearIndex) + "-" + finalMonthIndex + "-" + finalDayIndex
+        result = String(yearIndex) + "-" + finalMonthIndex + "-01"
         
         // displaying year & month
         displayText.text = result
         let displayTextIndex = result.index(result.endIndex, offsetBy: -3)
         displayText.text = result.substring(to: displayTextIndex)
         
-        // get the day in a week
+        // get today's day in a week
         var weekday = getDayOfWeekFunc(today: result)
         if weekday! == 7 {
             weekday! = 1
