@@ -115,15 +115,27 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         
         //finalMonthIndex = String(format: "%02d", monthIndex)
         
-        let checkDate =  String(format: "%02d", Int(selectedMonth[indexPath.row])!)
+        if selectedMonth[indexPath.row] != "" {
+            let checkDate =  String(format: "%02d", Int(selectedMonth[indexPath.row])!)
+            date?.backgroundColor = UIColor.red
+            
+            // this is the actual date picked
+            let indexOfDatePicked = result.index(result.endIndex, offsetBy: -2)
+            datePicked = result.substring(to: indexOfDatePicked) + checkDate
+
+        }
         
+        /*
         if checkDate != "" {
             date?.backgroundColor = UIColor.red
         }
+         
+         // this is the actual date picked
+         let indexOfDatePicked = result.index(result.endIndex, offsetBy: -2)
+         datePicked = result.substring(to: indexOfDatePicked) + checkDate
+
+         */
         
-        // this is the actual date picked
-        let indexOfDatePicked = result.index(result.endIndex, offsetBy: -2)
-        datePicked = result.substring(to: indexOfDatePicked) + checkDate
         
         if displayedPosts.isEmpty {
             for post in subscribedPosts {
