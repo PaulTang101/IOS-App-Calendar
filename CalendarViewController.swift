@@ -115,6 +115,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         
         //finalMonthIndex = String(format: "%02d", monthIndex)
         
+        displayedPosts = []
         if selectedMonth[indexPath.row] != "" {
             let checkDate =  String(format: "%02d", Int(selectedMonth[indexPath.row])!)
             date?.backgroundColor = UIColor.red
@@ -123,6 +124,11 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
             let indexOfDatePicked = result.index(result.endIndex, offsetBy: -2)
             datePicked = result.substring(to: indexOfDatePicked) + checkDate
 
+            for post in subscribedPosts {
+                if datePicked == post.postDate {
+                    displayedPosts += [post]
+                }
+            }
         }
         
         /*
@@ -136,24 +142,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
 
          */
         
-        
-        if displayedPosts.isEmpty {
-            for post in subscribedPosts {
-                if datePicked == post.postDate {
-                    displayedPosts += [post]
-                }
-            }
-        } else {
-            for post in subscribedPosts {
-                for checkDuplicate in displayedPosts {
-                    if datePicked == post.postDate && datePicked != checkDuplicate.postDate {
-                         displayedPosts += [post]
-                    } else {
-                        displayedPosts.removeAll()
-                    }
-                }
-            }
-        }
         
         calendarTable.reloadData()
     }
