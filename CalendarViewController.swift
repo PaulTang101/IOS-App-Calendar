@@ -113,8 +113,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = collectionView.cellForItem(at: indexPath)
         
-        //finalMonthIndex = String(format: "%02d", monthIndex)
-        
         displayedPosts = []
         if selectedMonth[indexPath.row] != "" {
             let checkDate =  String(format: "%02d", Int(selectedMonth[indexPath.row])!)
@@ -130,19 +128,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-        
-        /*
-        if checkDate != "" {
-            date?.backgroundColor = UIColor.red
-        }
-         
-         // this is the actual date picked
-         let indexOfDatePicked = result.index(result.endIndex, offsetBy: -2)
-         datePicked = result.substring(to: indexOfDatePicked) + checkDate
-
-         */
-        
-        
         calendarTable.reloadData()
     }
     
@@ -150,15 +135,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let date = collectionView.cellForItem(at: indexPath)
         date?.backgroundColor = UIColor.clear
-        
-        /*
-         GET TODAY'S DATE
-        let today = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        let result = formatter.string(from: today)
-        label.text = result
-         */
 
     }
     
@@ -171,8 +147,7 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "discovercells", for: indexPath) as! CalendarCollectionViewCell
     
         cell.backgroundColor = UIColor.clear
-
-       
+        
         // update result
         result = String(yearIndex) + "-" + finalMonthIndex + "-01"
         
@@ -207,6 +182,13 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let dates = selectedMonth[indexPath.row]
         cell.number?.text = dates
+        
+        /*
+         Highlight for event
+        cell.image.layer.cornerRadius = 7.25
+        cell.image.layer.masksToBounds = true
+         */
+        
         return cell
         
     }
@@ -231,19 +213,10 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CalendarTableViewCell = tableView.dequeueReusableCell(withIdentifier: "tableReuseIdentifier", for: indexPath) as! CalendarTableViewCell
-        /*
-        for post in subscribedPosts {
-            if datePicked == post.postDate {
-                displayedPosts += [post]
-            }
-        }
-        */
         
         let postsToDisplay = displayedPosts[indexPath.row]
         
         // Configure the cell...
-        //cell.clubImage.image = subscribedClub.ClubCellImageName
-        //cell.clubName?.text = subscribedClub.ClubNa
         cell.clubName?.text = postsToDisplay.clubName
         cell.postDescription?.text = postsToDisplay.postTitle
         
