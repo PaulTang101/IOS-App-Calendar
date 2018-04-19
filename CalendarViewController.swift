@@ -147,12 +147,16 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "discovercells", for: indexPath) as! CalendarCollectionViewCell
     
         cell.backgroundColor = UIColor.clear
+        cell.image.isHidden = true
+        cell.image.layer.cornerRadius = 7.25
+        cell.image.layer.masksToBounds = true
+        
+        //cell.image.isHidden = true
         
         // update result
         result = String(yearIndex) + "-" + finalMonthIndex + "-01"
         
         // displaying year & month
-        displayText.text = result
         let displayTextIndex = result.index(result.endIndex, offsetBy: -3)
         displayText.text = result.substring(to: displayTextIndex)
         
@@ -182,15 +186,19 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let dates = selectedMonth[indexPath.row]
         cell.number?.text = dates
-        
-        /*
-         Highlight for event
-        cell.image.layer.cornerRadius = 7.25
-        cell.image.layer.masksToBounds = true
-         */
+
+        // Highlight allthe events
+        for checkCell in [cell] as [CalendarCollectionViewCell] {
+            for checkPost in subscribedPosts {
+                if checkCell.number.text! == "" {
+                    checkCell.image.isHidden = true
+                } else if displayText.text! + "-" + String(format: "%02d", Int(checkCell.number.text!)!) == checkPost.postDate {
+                    checkCell.image.isHidden = false
+                }
+            }
+        }
         
         return cell
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
