@@ -25,7 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let samplePost4 = Post(postTitle: "music performance", clubName: "Music Club", postDate: "2018-05-02")
         
-        subscribedPosts += [samplePost1, samplePost2, samplePost3, samplePost4]
+        let samplePost5 = Post(postTitle: "RED Performance", clubName: "Drama club", postDate: "2018-02-23")
+        
+        subscribedPosts += [samplePost1, samplePost2, samplePost3, samplePost4, samplePost5]
         
         /*
         let fillerPost = Post(postTitle: "filler", clubName: "filler", postDate: "0000-00-00")

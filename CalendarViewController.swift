@@ -29,17 +29,22 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         calendarTable.delegate = self
         calendarTable.dataSource = self
-        
+         
         calendarView.delegate  = self
         calendarView.dataSource = self
-        let itemSize = UIScreen.main.bounds.width/7 - 7
+        
+        /*
+         Uncomment this code to set collectionview cell size in code
+         
+        let itemSize = UIScreen.main.bounds.width/7.9 + 1      // -7
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsetsMake(2, 3, 1, 2)
+        layout.sectionInset = UIEdgeInsetsMake(1,1,1,1)      //2,3,1,2
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
         layout.minimumInteritemSpacing = 3
         layout.minimumLineSpacing = 3
-        
+ 
         calendarView.collectionViewLayout = layout
+         */
 
         // Do any additional setup after loading the view.
         // get the current date

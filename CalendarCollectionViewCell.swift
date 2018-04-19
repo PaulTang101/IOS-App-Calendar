@@ -10,6 +10,11 @@ import UIKit
 
 class CalendarCollectionViewCell: UICollectionViewCell {
     
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        self.layer.cornerRadius = self.frame.size.width / 2
+    }
+    
     @IBOutlet weak var number: UILabel!
     @IBOutlet weak var image: UIImageView!
 
