@@ -63,6 +63,12 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         monthIndex = Int(result.substring(with: indexofMonth1..<indexofMonth2))!
         finalMonthIndex = String(format: "%02d", monthIndex)
     }
+    /*
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        calendarView.reloadData()
+    }
+     */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
